@@ -1,3 +1,5 @@
+# Emily's note: Originally forked from Udacity (AIPND-revision)
+
 # AIPND-revision
 This repository contains _REVISED_ code and associated files for the AI Programming with Python Nanodegree program. This repository consists of a number of tutorial notebooks for various coding exercises and programming labs that will be used to supplement the lessons of the course.
 
