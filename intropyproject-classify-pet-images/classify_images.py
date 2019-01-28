@@ -59,7 +59,7 @@ def classify_images(images_dir, results_dic, model):
            None - results_dic is mutable data type so no return needed.
     """
     for item in results_dic:
-        class_label = classifier(images_dir+"/"+item, model)
+        class_label = classifier(images_dir+item, model)
         class_label = class_label.lstrip().rstrip().lower()
         results_dic[item].append(class_label)
         if results_dic[item][0] in class_label:

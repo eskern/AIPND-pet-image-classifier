@@ -25,7 +25,7 @@ def prettify(name):
     for word in formatter:
         if word.isalpha(): # takes care if file has numbers or .jpg
             new_name += (word + ' ')
-    new_name = new_name.rstrip() # removes trailing white space
+    new_name = (new_name.rstrip()).lower() # removes trailing white space and lowercases it
     return new_name
 
 def get_pet_labels(image_dir):
@@ -47,7 +47,7 @@ def get_pet_labels(image_dir):
     """
     results_dic = {}
     images = listdir(image_dir)
-    images = [image.lower() for image in images]
+    images = [image for image in images]
     for image in images:
         label = prettify(image)
         results_dic[image] = [label]
