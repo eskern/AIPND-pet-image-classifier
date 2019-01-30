@@ -4,7 +4,7 @@
 #
 # PROGRAMMER: Emily Kern
 # DATE CREATED: January 21, 2019
-# REVISED DATE: January 26, 2019
+# REVISED DATE: January 30, 2019
 # PURPOSE: Create a function print_results that prints the results statistics
 #          from the results statistics dictionary (results_stats_dic). It
 #          should also allow the user to be able to print out cases of misclassified
@@ -76,5 +76,3 @@ def print_results(results_dic, results_stats_dic, model,
         for key in results_dic:
             if sum(results_dic[key][3:]) == 2 and results_dic[key][2] == 0:
                 print(model + ' misclassified breed: ' + key)
-
-    None

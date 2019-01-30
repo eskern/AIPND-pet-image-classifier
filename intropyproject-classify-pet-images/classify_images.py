@@ -4,7 +4,7 @@
 #
 # PROGRAMMER: Emily Kern
 # DATE CREATED: January 7, 2019
-# REVISED DATE: January 19, 2019
+# REVISED DATE: January 30, 2019
 # PURPOSE: Create a function classify_images that uses the classifier function
 #          to create the classifier labels and then compares the classifier
 #          labels to the pet image labels. This function inputs:
@@ -60,10 +60,9 @@ def classify_images(images_dir, results_dic, model):
     """
     for item in results_dic:
         class_label = classifier(images_dir+item, model)
-        class_label = class_label.lstrip().rstrip().lower()
+        class_label = class_label.strip().lower()
         results_dic[item].append(class_label)
         if results_dic[item][0] in class_label:
             results_dic[item].append(1)
         else:
             results_dic[item].append(0)
-    None

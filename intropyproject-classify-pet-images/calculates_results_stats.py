@@ -4,7 +4,7 @@
 #
 # PROGRAMMER: Emily Kern
 # DATE CREATED: January 21, 2019
-# REVISED DATE: January 21, 2019
+# REVISED DATE: January 30, 2019
 # PURPOSE: Create a function calculates_results_stats that calculates the
 #          statistics of the results of the programrun using the classifier's model
 #          architecture to classify the images. This function will use the
@@ -69,51 +69,40 @@ def calculates_results_stats(results_dic):
     """
     results_stats_dic = {}
     results_stats_dic['n_images'] = len(results_dic)
+    results_stats_dic['n_dogs_img'] = 0
+    results_stats_dic['n_notdogs_img'] = 0
+    results_stats_dic['n_match'] = 0
+    results_stats_dic['n_correct_dogs'] = 0
+    results_stats_dic['n_correct_notdogs'] = 0
+    results_stats_dic['n_correct_breed'] = 0
 
-    dog_imgs = 0
     for key in results_dic:
         if results_dic[key][3] == 1:
-            dog_imgs += 1
-    results_stats_dic['n_dogs_img'] = dog_imgs
-
-    not_dog_imgs = 0
-    for key in results_dic:
+            results_stats_dic['n_dogs_img'] += 1
         if results_dic[key][3] == 0:
-            not_dog_imgs += 1
-    results_stats_dic['n_notdogs_img'] = not_dog_imgs
-
-    pet_label_matches = 0
-    for key in results_dic:
+            results_stats_dic['n_notdogs_img'] += 1
         if results_dic[key][2] == 1:
-            pet_label_matches += 1
-    results_stats_dic['n_match'] = pet_label_matches
-
-    correct_dog_imgs = 0
-    for key in results_dic:
+            results_stats_dic['n_match'] += 1
         if results_dic[key][3] + results_dic[key][4] == 2:
-            correct_dog_imgs += 1
-    results_stats_dic['n_correct_dogs'] = correct_dog_imgs
-
-    def_not_dog_imgs = 0
-    for key in results_dic:
+            results_stats_dic['n_correct_dogs'] += 1
         if results_dic[key][3] + results_dic[key][4] == 0:
-            def_not_dog_imgs += 1
-    results_stats_dic['n_correct_notdogs'] = def_not_dog_imgs
-
-    correct_breed = 0
-    for key in results_dic:
+            results_stats_dic['n_correct_notdogs'] += 1
         if results_dic[key][3] + results_dic[key][2] == 2:
-            correct_breed += 1
-    results_stats_dic['n_correct_breed'] = correct_breed
-    print ("Correct breeds: " + str(results_stats_dic['n_correct_breed']))
+            results_stats_dic['n_correct_breed'] += 1
 
-    results_stats_dic['pct_match'] = (results_stats_dic['n_match']/results_stats_dic['n_images'])*100
-    results_stats_dic['pct_correct_dogs'] = (results_stats_dic['n_correct_dogs']/results_stats_dic['n_dogs_img'])*100
-    results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed']/results_stats_dic['n_dogs_img'])*100
-
+    if results_stats_dic['n_dogs_img'] < 1:
+        results_stats_dic['pct_correct_dogs'] = 0
+        results_stats_dic['pct_correct_breed'] = 0
+    if results_stats_dic['n_dogs_img'] > 0:
+        results_stats_dic['pct_correct_dogs'] = (results_stats_dic['n_correct_dogs']/results_stats_dic['n_dogs_img'])*100
+        results_stats_dic['pct_correct_breed'] = (results_stats_dic['n_correct_breed']/results_stats_dic['n_dogs_img'])*100
+    if results_stats_dic['n_images'] < 1:
+        results_stats_dic['pct_match'] = 0
+    if results_stats_dic['n_images'] > 0:
+        results_stats_dic['pct_match'] = (results_stats_dic['n_match']/results_stats_dic['n_images'])*100
     if results_stats_dic['n_notdogs_img'] < 1:
         results_stats_dic['pct_correct_notdogs'] = 0
-    else:
+    if results_stats_dic['n_notdogs_img'] > 0:
         results_stats_dic['pct_correct_notdogs'] = (results_stats_dic['n_correct_notdogs']/results_stats_dic['n_notdogs_img'])*100
 
     return results_stats_dic

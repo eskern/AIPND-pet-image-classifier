@@ -4,7 +4,7 @@
 #
 # PROGRAMMER: Emily Kern
 # DATE CREATED: January 6, 2019
-# REVISED DATE: January 7, 2019
+# REVISED DATE: January 30, 2019
 # PURPOSE: Create the function get_pet_labels that creates the pet labels from
 #          the image's filename. This function inputs:
 #           - The Image Folder as image_dir within get_pet_labels function and
@@ -17,10 +17,12 @@
 #
 # Imports python modules
 from os import listdir
+from os.path import splitext
 
 # makes for easier formatting for label
 def prettify(name):
     new_name = ''
+    formatter = splitext(name)[0]
     formatter = name.split("_")
     for word in formatter:
         if word.isalpha(): # takes care if file has numbers or .jpg
@@ -47,8 +49,8 @@ def get_pet_labels(image_dir):
     """
     results_dic = {}
     images = listdir(image_dir)
-    images = [image for image in images]
     for image in images:
-        label = prettify(image)
-        results_dic[image] = [label]
+        if not image.startswith('.'): # hidden directories and files not allowed
+            label = prettify(image)
+            results_dic[image] = [label]
     return results_dic
